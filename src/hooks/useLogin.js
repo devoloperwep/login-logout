@@ -20,8 +20,8 @@ export const useLogin = () => {
       dispatch(login(req.user));
       console.log("User:", req.user);
     } catch (error) {
-      setError(getFirebaseErrorMessage(error.code));
-      console.log("Firebase error:", error.code);
+      setError(getFirebaseErrorMessage(error.message));
+      console.log("Firebase error:", error.message);
     } finally {
       setIsPending(false);
     }

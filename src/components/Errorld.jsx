@@ -4,6 +4,11 @@ export const formError = (data) => {
   if (!data?.password) return "Password is required";
   return null;
 };
+export const loginError = (data) => {
+  if (!data?.email) return "Email is required";
+  if (!data?.password) return "Password is required";
+  return null;
+};
 
 export function getFirebaseErrorMessage(error) {
   if (!error) return "An unknown error occurred.";

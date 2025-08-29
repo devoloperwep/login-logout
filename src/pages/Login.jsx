@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, Link, useActionData } from "react-router-dom";
-import { formError } from "../components/Errorld";
+import { loginError } from "../components/Errorld";
 import FormInput from "../components/FormInput";
 import { useLogin } from "../hooks/useLogin";
 
@@ -18,11 +18,13 @@ function Login() {
   useEffect(() => {
     if (user?.email && user?.password) {
       login(user.email, user.password);
-      setError(false);
+      setError(null);
     } else {
-      setError(user ? formError({ ...user }) : false);
+      console.log(user);
+      setError(user ? loginError(user) : false);
     }
   }, [user]);
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
       <div className="w-full max-w-md bg-white shadow-xl rounded-2xl p-8">
