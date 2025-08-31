@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { auth } from "../firebase/config";
+import { auth, db } from "../firebase/config";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { login } from "../app/userSlice";
 import { getFirebaseErrorMessage } from "../components/Errorld";
+import { doc, updateDoc } from "firebase/firestore";
 
 export const useLogin = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,13 @@ export const useLogin = () => {
       if (!req.user) {
         throw new Error("Login failed");
       }
-      console.log(req.user);
+
+      const userRef = doc(db, "users", req.user.uid);
+
+      await updateDoc(userRef, {
+        online: true,
+      });
+
       dispatch(login(req.user));
     } catch (error) {
       setError(getFirebaseErrorMessage(error.message));
