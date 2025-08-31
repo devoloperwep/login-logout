@@ -3,7 +3,6 @@ import { Form, Link, useActionData } from "react-router-dom";
 import { formError } from "../components/Errorld";
 import FormInput from "../components/FormInput";
 import { useRegister } from "../hooks/useRegister";
-import { auth } from "../firebase/config";
 
 export async function action({ request }) {
   const formData = await request.formData();

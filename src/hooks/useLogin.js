@@ -17,8 +17,8 @@ export const useLogin = () => {
       if (!req.user) {
         throw new Error("Login failed");
       }
+      console.log(req.user);
       dispatch(login(req.user));
-      console.log("User:", req.user);
     } catch (error) {
       setError(getFirebaseErrorMessage(error.message));
       console.log("Firebase error:", error.message);
