@@ -20,6 +20,7 @@ export const useRegister = () => {
       }
       await updateProfile(req.user, {
         displayName: name,
+        photoURL: "https://api.dicebear.com/9.x/open-peeps/svg?seed=" + name,
       });
 
       await setDoc(doc(db, "users", req.user.uid), {
