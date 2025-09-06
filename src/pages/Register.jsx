@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Form, Link, useActionData } from "react-router-dom";
 import { formError } from "../components/Errorld";
 import FormInput from "../components/FormInput";
+import { useGoogle } from "../hooks/useGoogle";
 import { useRegister } from "../hooks/useRegister";
 
 export async function action({ request }) {
@@ -14,6 +15,11 @@ function Register() {
   const user = useActionData();
   const [error, setError] = useState(null);
   const { register, isPending, error: _error } = useRegister();
+  const {
+    googleProvider,
+    isPending: googleIsPending,
+    error: googleError,
+  } = useGoogle();
   useEffect(() => {
     if (user?.name && user?.email && user?.password) {
       register(user.name, user.email, user.password);
@@ -89,6 +95,24 @@ function Register() {
             </button>
           )}
           {isPending && (
+            <button
+              type="submit"
+              disabled
+              className="w-full cursor-pointer bg-black text-white py-3 disabled rounded-lg font-semibold shadow-md hover:shadow-lg transition duration-300"
+            >
+              Loading...
+            </button>
+          )}
+          {!googleIsPending && (
+            <button
+              type="button"
+              onClick={googleProvider}
+              className="w-full cursor-pointer bg-black text-white py-3 disabled rounded-lg font-semibold shadow-md hover:shadow-lg transition duration-300"
+            >
+              Google
+            </button>
+          )}
+          {googleIsPending && (
             <button
               type="submit"
               disabled

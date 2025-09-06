@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useCollection } from "../hooks/useCollection";
 import { useLogout } from "../hooks/useLogout";
 
@@ -8,8 +8,13 @@ function Home() {
   const { _logout, error, isPending } = useLogout();
   const { user } = useSelector((store) => store.user);
   const { data } = useCollection("users");
+  const { data: tasks } = useCollection("tasks");
+  console.log(tasks);
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      <button className="btn btn-secondary">
+        <Link to="/create">Create</Link>
+      </button>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-16 relative">
           <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
@@ -147,6 +152,27 @@ function Home() {
             ))}
         </div>
       </div>
+      <ul>
+        {tasks &&
+          tasks.map((task) => {
+            return (
+              <li key={task.uid}>
+                <h5>{task.name}</h5>
+                <div className="avatar-group -space-x-6 bg-indigo-500 py-5 ">
+                  {task.selectUsers.map((user) => {
+                    return (
+                      <div className="avatar avatar-offline">
+                        <div className="w-24 rounded-full ">
+                          <img src={user.photoURL} width="20" height="20" />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </li>
+            );
+          })}
+      </ul>
     </div>
   );
 }

@@ -16,6 +16,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/config";
 import { useEffect } from "react";
 import { isAuthReady, login } from "./app/userSlice";
+import CreateTask from "./pages/CreateTask";
 
 function App() {
   const { user, authReady } = useSelector((store) => store.user);
@@ -33,8 +34,13 @@ function App() {
           index: true,
           element: <Home />,
         },
+        {
+          path: "/create",
+          element: <CreateTask />,
+        },
       ],
     },
+
     {
       path: "/login",
       element: user ? <Navigate to="/" /> : <Login />,
