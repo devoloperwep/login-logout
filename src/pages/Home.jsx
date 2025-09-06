@@ -156,19 +156,25 @@ function Home() {
         {tasks &&
           tasks.map((task) => {
             return (
-              <li key={task.uid}>
-                <h5>{task.name}</h5>
-                <div className="avatar-group -space-x-6 bg-indigo-500 py-5 ">
-                  {task.selectUsers.map((user) => {
-                    return (
-                      <div className="avatar avatar-offline">
-                        <div className="w-24 rounded-full ">
-                          <img src={user.photoURL} width="20" height="20" />
+              <li
+                className="cursor-pointer"
+                title={task.name + "Chat"}
+                key={task.uid}
+              >
+                <Link to={`/task/${task.uid}`}>
+                  <h5>{task.name}</h5>
+                  <div className="avatar-group -space-x-6 bg-indigo-500 py-5 ">
+                    {task.selectUsers.map((user) => {
+                      return (
+                        <div key={user.uid} className="avatar avatar-offline">
+                          <div className="w-24 rounded-full ">
+                            <img src={user.photoURL} width="20" height="20" />
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                      );
+                    })}
+                  </div>
+                </Link>
               </li>
             );
           })}
