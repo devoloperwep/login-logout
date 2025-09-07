@@ -10,9 +10,9 @@ function HomeTasksUi({ tasks, user, data, error, isPending, _logout }) {
           <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
           <div className="absolute -top-5 right-20 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
 
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 relative z-10">
-            Hello,{" "}
-            <span className="text-indigo-600 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 relative z-10 flex align-center justify-center">
+            Hello,
+            <span className="text-indigo-800 from-indigo-600 ml-2">
               {user.displayName}
             </span>{" "}
             👋
@@ -67,7 +67,7 @@ function HomeTasksUi({ tasks, user, data, error, isPending, _logout }) {
           {!isPending ? (
             <button
               onClick={_logout}
-              className="px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 
+              className="px-10 py-5 bg-black cursor-pointer from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 
                      text-white font-semibold rounded-2xl shadow-2xl hover:shadow-xl 
                      transition-all duration-300 flex items-center space-x-3"
             >
