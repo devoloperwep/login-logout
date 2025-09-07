@@ -7,7 +7,7 @@ function Home() {
   const { _logout, error, isPending } = useLogout();
   const { user } = useSelector((store) => store.user);
   const { data } = useCollection("users");
-  const { data: tasks } = useCollection("tasks", "desc");
+  const { data: tasks } = useCollection("tasks", "asc");
   return (
     <HomeTasksUi
       tasks={tasks}
