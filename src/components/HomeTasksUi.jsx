@@ -10,7 +10,7 @@ function HomeTasksUi({ tasks, user, data, error, isPending, _logout }) {
           <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
           <div className="absolute -top-5 right-20 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
 
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 relative z-10 flex align-center justify-center">
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 relative z-10 flex items-center justify-center flex-col sm:flex-row gap-3">
             Hello,
             <span className="text-indigo-800 from-indigo-600 ml-2">
               {user.displayName}
