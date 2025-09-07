@@ -20,7 +20,6 @@ function CreateTask() {
         label: user.displayName,
         photoURL: user.photoURL,
         uid: user.uid,
-        timestamp: serverTimestamp(),
       };
     });
     setUserOptions(users);
@@ -40,6 +39,7 @@ function CreateTask() {
         dueTo,
         selectUsers,
         comments: [],
+        timestamp: serverTimestamp(),
       };
 
       await addDoc(collection(db, "tasks"), {
