@@ -30,11 +30,15 @@ function TasksChat({ tasks }) {
                 ))}
               </div>
 
-              <p className="text-gray-900 text-base md:text-sm sm:text-xs  rounded-lg px-4 py-3 ">
+              <p className="text-gray-900 text-base md:text-sm sm:text-xs  rounded-lg px-4 mb-2 ">
                 <span className="font-semibold text-gray-800">
                   📝 Description:
                 </span>{" "}
                 {task.description}
+              </p>
+              <p className="text-gray-900 text-base md:text-sm sm:text-xs  rounded-lg">
+                <span className="font-semibold text-gray-800">📅 Date:</span>{" "}
+                {task.dueTo}
               </p>
             </Link>
           </li>
