@@ -16,19 +16,23 @@ function Task() {
     const formData = new FormData(e.target);
     const comment = formData.get("comment");
 
-    const newComment = {
-      text: comment,
-      uid: user.uid,
-      id: Math.random(),
-      photoURL: user.photoURL,
-      displayName: user.displayName,
-    };
+    if (comment.trim()) {
+      const newComment = {
+        text: comment,
+        uid: user.uid,
+        id: Math.random(),
+        photoURL: user.photoURL,
+        displayName: user.displayName,
+      };
 
-    const commentRef = doc(db, "tasks", data.id);
-    await updateDoc(commentRef, {
-      comments: [...data.comments, newComment],
-    });
-    e.target.reset();
+      const commentRef = doc(db, "tasks", data.id);
+      await updateDoc(commentRef, {
+        comments: [...data.comments, newComment],
+      });
+      e.target.reset();
+    } else {
+      alert("Xabar kiriting!");
+    }
   };
   console.log(data);
   if (!data) {
@@ -37,33 +41,72 @@ function Task() {
     );
   }
   return (
-    <div>
-      <h1>Task - {data.name}</h1>
+    <div className="min-h-screen bg-gray-900 text-white p-6">
+      {/* Header */}
+      <h1 className="text-2xl font-bold mb-6 text-center">
+        Task – <span className="text-blue-400">{data.name}</span>
+      </h1>
 
-      <form onSubmit={hendleSubmit} className="flex gap-3 mt-5">
+      {/* Comment form */}
+      <form onSubmit={hendleSubmit} className="flex gap-3 mb-6">
         <input
-          className="input"
+          className="flex-1 bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
           type="text"
-          placeholder="add comment"
+          placeholder="💬 Write a comment..."
           name="comment"
         />
-        <button className="btn">Add</button>
+        <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition active:scale-95">
+          Send
+        </button>
       </form>
-      <div>
-        {data.comments.length == 0 ? (
-          "No comments"
+
+      {/* Comments */}
+      <div className="space-y-4">
+        {data.comments.length === 0 ? (
+          <p className="text-center text-gray-500">No comments yet</p>
         ) : (
-          <div>
-            {data.comments.map((comment) => {
-              return (
-                <div key={comment.id} className="flex gap-2">
-                  <span>{comment.displayName}</span>
-                  <img src={comment.photoURL} alt="" width={20} height="20" />
-                  <span className="text-success">{comment.text}</span>
+          data.comments.map((comment) => (
+            <div
+              key={comment.id}
+              className={`flex items-end gap-2 ${
+                comment.uid === user.uid ? "justify-end" : "justify-start"
+              }`}
+            >
+              {/* Avatar (chap yoki o'ng tomonda) */}
+              {comment.uid !== user.uid && (
+                <div className="w-9 h-9 rounded-full overflow-hidden border border-gray-700 shadow">
+                  <img src={comment.photoURL} alt="avatar" />
                 </div>
-              );
-            })}
-          </div>
+              )}
+
+              {/* Chat bubble */}
+              <div
+                className={`px-4 py-2 rounded-2xl text-sm max-w-xs break-words shadow-md ${
+                  comment.uid === user.uid
+                    ? "bg-blue-600 text-white rounded-br-none"
+                    : "bg-gray-800 text-gray-200 rounded-bl-none"
+                }`}
+              >
+                <p>{comment.text}</p>
+                <span
+                  className={`block text-[10px] mt-1 text-right ${
+                    comment.uid === user.uid ? "text-blue-200" : "text-gray-400"
+                  }`}
+                >
+                  {new Date().toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
+              </div>
+
+              {comment.uid === user.uid && (
+                <div className="w-9 h-9 rounded-full overflow-hidden border border-gray-700 shadow">
+                  <img src={comment.photoURL} alt="avatar" />
+                </div>
+              )}
+            </div>
+          ))
         )}
       </div>
     </div>
