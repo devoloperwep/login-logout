@@ -1,4 +1,4 @@
-import { addDoc, collection, doc } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
@@ -20,6 +20,7 @@ function CreateTask() {
         label: user.displayName,
         photoURL: user.photoURL,
         uid: user.uid,
+        timestamp: serverTimestamp(),
       };
     });
     setUserOptions(users);

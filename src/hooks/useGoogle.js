@@ -15,7 +15,7 @@ export const useGoogle = () => {
     try {
       setIsPanding(true);
       const provider = new GoogleAuthProvider();
-      const req = await new signInWithPopup(auth, provider);
+      const req = await signInWithPopup(auth, provider);
       if (!req.user) {
         throw new Error("Registration feiled");
       }

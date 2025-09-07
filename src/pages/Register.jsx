@@ -4,6 +4,7 @@ import { formError } from "../components/Errorld";
 import FormInput from "../components/FormInput";
 import { useGoogle } from "../hooks/useGoogle";
 import { useRegister } from "../hooks/useRegister";
+import { FaGoogle } from "react-icons/fa";
 
 export async function action({ request }) {
   const formData = await request.formData();
@@ -85,6 +86,9 @@ function Register() {
           </div>
           <div>{error && <p style={{ color: "red" }}>{error}</p>}</div>
           <div>{_error && <p style={{ color: "red" }}>{_error}</p>}</div>
+          <div>
+            {googleError && <p style={{ color: "red" }}>{googleError}</p>}
+          </div>
 
           {!isPending && (
             <button
@@ -107,9 +111,14 @@ function Register() {
             <button
               type="button"
               onClick={googleProvider}
-              className="w-full cursor-pointer bg-black text-white py-3 disabled rounded-lg font-semibold shadow-md hover:shadow-lg transition duration-300"
+              className="flex items-center justify-center gap-2 w-full 
+             bg-white text-gray-800 border border-gray-300 
+             py-3 rounded-lg font-medium 
+             shadow-sm hover:shadow-md hover:bg-gray-50 
+             active:scale-95 transition cursor-pointer"
             >
-              Google
+              <FaGoogle className="text-red-500 text-lg" />
+              Continue with Google
             </button>
           )}
           {googleIsPending && (

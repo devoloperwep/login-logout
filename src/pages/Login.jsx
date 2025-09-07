@@ -3,8 +3,10 @@ import { useRef } from "react";
 import { Form, Link, useActionData } from "react-router-dom";
 import { loginError } from "../components/Errorld";
 import FormInput from "../components/FormInput";
+import { useGoogle } from "../hooks/useGoogle";
 import { useLogin } from "../hooks/useLogin";
 import { useResetPassword } from "../hooks/useResetPassword";
+import { FaGoogle } from "react-icons/fa";
 
 export async function action({ request }) {
   const formData = await request.formData();
@@ -20,6 +22,11 @@ function Login() {
   const { reserPassword } = useResetPassword();
   const [forgetPassword, setForgetPassword] = useState(false);
   const email = useRef();
+  const {
+    googleProvider,
+    isPending: googleIsPending,
+    error: googleError,
+  } = useGoogle();
 
   useEffect(() => {
     if (user?.email && user?.password) {
@@ -77,6 +84,9 @@ function Login() {
             <div className="text-end">
               {error && <p className="text-red-600 text-sm">{error}</p>}
               {_error && <p className="text-red-600 text-sm">{_error}</p>}
+              {googleError && (
+                <p className="text-red-600 text-sm">{googleError}</p>
+              )}
             </div>
             <button
               type="submit"
@@ -89,6 +99,29 @@ function Login() {
             >
               {isPending ? "Loading..." : "Login"}
             </button>
+            {!googleIsPending && (
+              <button
+                type="button"
+                onClick={googleProvider}
+                className="flex items-center justify-center gap-2 w-full 
+             bg-white text-gray-800 border border-gray-300 
+             py-3 rounded-lg font-medium 
+             shadow-sm hover:shadow-md hover:bg-gray-50 
+             active:scale-95 transition cursor-pointer"
+              >
+                <FaGoogle className="text-red-500 text-lg" />
+                Continue with Google
+              </button>
+            )}
+            {googleIsPending && (
+              <button
+                type="submit"
+                disabled
+                className="w-full cursor-pointer bg-black text-white py-3 disabled rounded-lg font-semibold shadow-md hover:shadow-lg transition duration-300"
+              >
+                Loading...
+              </button>
+            )}
           </Form>
         )}
 
@@ -111,7 +144,7 @@ function Login() {
             </div>
             <button
               type="submit"
-              className="w-full py-3 rounded-lg font-semibold text-white shadow-md bg-pink-500 hover:bg-pink-600 hover:shadow-lg transition duration-300"
+              className="w-full cursor-pointer py-3 rounded-lg font-semibold text-white shadow-md bg-pink-500 hover:bg-pink-600 hover:shadow-lg transition duration-300"
             >
               Send Reset Link
             </button>
@@ -120,7 +153,7 @@ function Login() {
 
         <button
           onClick={() => setForgetPassword(!forgetPassword)}
-          className="w-full py-2 mt-5 rounded-lg font-medium text-indigo-600 bg-indigo-100 hover:bg-indigo-200 transition"
+          className="w-full py-2 mt-5 cursor-pointer rounded-lg font-medium text-indigo-600 bg-indigo-100 hover:bg-indigo-200 transition"
         >
           {forgetPassword ? "Back to Login" : "Forgot Password"}
         </button>

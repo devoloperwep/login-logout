@@ -7,7 +7,10 @@ function TasksChat({ tasks }) {
     <>
       {tasks.map((task) => {
         return (
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-10 bg-zinc-900 py-5 gap-5">
+          <ul
+            key={task.uid}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-10 bg-zinc-900 py-5 gap-5"
+          >
             <li
               key={task.uid}
               title={task.name + " Chat"}
