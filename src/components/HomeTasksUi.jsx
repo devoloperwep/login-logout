@@ -152,10 +152,7 @@ function HomeTasksUi({ tasks, user, data, error, isPending, _logout }) {
           <Link to="/create">👉 Create Chat 💬✨</Link>
         </button>
       </div>
-
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 px-10 bg-zinc-900 py-5 gap-5">
-        {tasks && <TasksChat tasks={tasks} />}
-      </ul>
+      {tasks && <TasksChat tasks={tasks} />}
     </div>
   );
 }
