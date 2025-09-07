@@ -13,10 +13,16 @@ function TaskUI({ data, user }) {
               }`}
             >
               {comment.uid !== user.uid && (
-                <div className="w-9 h-9 rounded-full overflow-hidden border border-gray-700 shadow">
-                  <img src={comment.photoURL} alt="avatar" />
+                <div className="flex flex-col items-center">
+                  <div className="w-9 h-9 rounded-full overflow-hidden border border-gray-700 shadow">
+                    <img src={comment.photoURL} alt="avatar" />
+                  </div>
+                  <span className="text-[10px] text-gray-400 mt-1">
+                    {comment.displayName}
+                  </span>
                 </div>
               )}
+
               <div
                 className={`px-4 py-2 rounded-2xl text-sm max-w-xs break-words shadow-md ${
                   comment.uid === user.uid
@@ -38,8 +44,13 @@ function TaskUI({ data, user }) {
               </div>
 
               {comment.uid === user.uid && (
-                <div className="w-9 h-9 rounded-full overflow-hidden border border-gray-700 shadow">
-                  <img src={comment.photoURL} alt="avatar" />
+                <div className="flex flex-col items-center">
+                  <div className="w-9 h-9 rounded-full overflow-hidden border border-gray-700 shadow">
+                    <img src={comment.photoURL} alt="avatar" />
+                  </div>
+                  <span className="text-[10px] text-blue-300 mt-1">
+                    {comment.displayName}
+                  </span>
                 </div>
               )}
             </div>

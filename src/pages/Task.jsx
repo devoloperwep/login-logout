@@ -44,7 +44,7 @@ function Task() {
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
       <h1 className="text-2xl font-bold mb-6 text-center">
-        Task – <span className="text-blue-400">{data.name}</span>
+        Chat – <span className="text-blue-400">{data.name}</span>
       </h1>
       <div className="space-y-4">
         {data.comments.length === 0 ? (
