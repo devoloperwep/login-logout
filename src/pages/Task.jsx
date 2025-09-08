@@ -2,7 +2,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import React from "react";
 import { use } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import TaskUI from "../components/TaskUI";
 import { db } from "../firebase/config";
 import useDocument from "../hooks/useDocument";
@@ -43,6 +43,12 @@ function Task() {
   }
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
+      <Link
+        to="/"
+        className="inline-block rounded-lg border border-blue-600 px-5 py-2 text-sm font-medium text-white  hover:bg-blue-600   transition"
+      >
+        Home
+      </Link>
       <h1 className="text-2xl font-bold mb-6 text-center">
         Chat – <span className="text-blue-400">{data.name}</span>
       </h1>

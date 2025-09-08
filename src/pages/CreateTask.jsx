@@ -1,6 +1,6 @@
 import { addDoc, collection, doc, serverTimestamp } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import FormInput from "../components/FormInput";
 import FormTextArea from "../components/FormTextArea";
@@ -54,7 +54,14 @@ function CreateTask() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 p-5">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 p-5 flex-col gap-1">
+      <Link
+        to="/"
+        className="inline-block rounded-lg border border-blue-600 px-5 py-2 text-sm font-medium text-blue-600 hover:bg-blue-600 hover:text-white transition"
+      >
+        Home
+      </Link>
+
       <form
         onSubmit={hendleSubmit}
         className="w-full max-w-xl bg-white/60 backdrop-blur-lg rounded-2xl shadow-lg p-8 flex flex-col gap-5"
