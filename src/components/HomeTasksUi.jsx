@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import TasksChat from "./TasksChat";
 
 function HomeTasksUi({ tasks, user, data, error, isPending, _logout }) {
-  console.log(tasks);
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -64,7 +63,7 @@ function HomeTasksUi({ tasks, user, data, error, isPending, _logout }) {
           </div>
         )}
 
-        <div className="flex justify-center mb-20">
+        <div className="flex justify-center gap-5 mb-20 flex-wrap">
           {!isPending ? (
             <button
               onClick={_logout}
@@ -96,6 +95,32 @@ function HomeTasksUi({ tasks, user, data, error, isPending, _logout }) {
               <span className="text-lg">Loading...</span>
             </button>
           )}
+          <Link
+            to="/profile"
+            className="px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-2xl shadow-2xl hover:shadow-xl 
+                   transition-all duration-300 flex items-center space-x-3"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5.121 17.804A9 9 0 1118.364 4.56 9 9 0 015.121 17.804z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+            <span className="text-lg">Profile</span>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">

@@ -1,13 +1,18 @@
-import React from "react";
+import {
+  CreateTask,
+  Home,
+  Login,
+  Profile,
+  Register,
+  Task,
+  UserInfo,
+} from "./pages";
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
-import Home from "./pages/Home";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import { useDispatch, useSelector } from "react-redux";
 import { action as RegisterAction } from "./pages/Register";
@@ -16,10 +21,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/config";
 import { useEffect } from "react";
 import { isAuthReady, login } from "./app/userSlice";
-import CreateTask from "./pages/CreateTask";
-import Task from "./pages/Task";
-import Profile from "./pages/Profile";
-import UserInfo from "./pages/UserInfo";
 
 function App() {
   const { user, authReady } = useSelector((store) => store.user);
