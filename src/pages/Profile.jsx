@@ -1,13 +1,34 @@
 import { sendEmailVerification } from "firebase/auth";
+import { doc } from "firebase/firestore";
+import { updateDoc } from "firebase/firestore/lite";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase/config";
+import { auth, db } from "../firebase/config";
+import { useCollection } from "../hooks/useCollection";
 import { useLogout } from "../hooks/useLogout";
 
 function Profile() {
   const { user } = useSelector((store) => store.user);
   const { _logout, isPending, error } = useLogout();
+  const { data } = useCollection("users", null, [
+    "uid",
+    "==",
+    auth.currentUser.uid,
+  ]);
+
+  const hendleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const bgImage = formData.get("bgImage");
+    const userRef = doc(db, "users", user.uid);
+
+    await updateDoc(userRef, {
+      bgURL: bgImage,
+    }).then(() => {
+      alert("Image added successfully");
+    });
+  };
 
   const sendEmailLink = () => {
     sendEmailVerification(auth.currentUser)

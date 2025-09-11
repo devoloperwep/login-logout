@@ -126,45 +126,46 @@ function HomeTasksUi({ tasks, user, data, error, isPending, _logout }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
           {data &&
             data.map((user) => (
-              <div
-                key={user.uid}
-                className="relative group flex flex-col items-center text-center p-8 bg-white rounded-3xl 
+              <Link key={user.uid} to={`/userInfo/${user.uid}`}>
+                <div
+                  className="relative group flex flex-col items-center text-center p-8 bg-white rounded-3xl 
                      shadow-lg hover:shadow-xl border border-gray-100 hover:border-indigo-100 
                      transition-all duration-300"
-              >
-                <div className="relative mb-6">
-                  <img
-                    src={user.photoURL}
-                    alt={user.displayName}
-                    className="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover"
-                  />
-                  <div
-                    className={`absolute bottom-0 right-0 w-6 h-6 rounded-full border-2 border-white ${
-                      user.online ? "bg-green-400" : "bg-gray-300"
-                    }`}
-                  ></div>
-                </div>
-
-                <h2 className="font-bold text-xl text-gray-900 mb-2">
-                  {user.displayName}
-                </h2>
-
-                <p
-                  className={`text-sm font-semibold mb-6 ${
-                    user.online ? "text-green-600" : "text-gray-500"
-                  }`}
                 >
-                  {user.online ? "Online" : "Offline"}
-                </p>
+                  <div className="relative mb-6">
+                    <img
+                      src={user.photoURL}
+                      alt={user.displayName}
+                      className="w-24 h-24 rounded-full border-4 border-white shadow-lg object-cover"
+                    />
+                    <div
+                      className={`absolute bottom-0 right-0 w-6 h-6 rounded-full border-2 border-white ${
+                        user.online ? "bg-green-400" : "bg-gray-300"
+                      }`}
+                    ></div>
+                  </div>
 
-                <button
-                  className="px-6 py-3 text-sm font-semibold text-indigo-600 hover:text-white 
+                  <h2 className="font-bold text-xl text-gray-900 mb-2">
+                    {user.displayName}
+                  </h2>
+
+                  <p
+                    className={`text-sm font-semibold mb-6 ${
+                      user.online ? "text-green-600" : "text-gray-500"
+                    }`}
+                  >
+                    {user.online ? "Online" : "Offline"}
+                  </p>
+
+                  <button
+                    className="px-6 py-3 text-sm font-semibold text-indigo-600 hover:text-white 
                          bg-indigo-50 hover:bg-indigo-600 rounded-xl transition-all duration-200 
                          hover:shadow-lg w-full max-w-[160px]"
-                >
-                  View Profile
-                </button>
-              </div>
+                  >
+                    View Profile
+                  </button>
+                </div>
+              </Link>
             ))}
         </div>
       </div>

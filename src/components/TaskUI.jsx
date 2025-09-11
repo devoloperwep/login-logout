@@ -1,10 +1,14 @@
 import React from "react";
+import { formatTime } from "../utils";
 
 function TaskUI({ data, user }) {
   return (
     <>
       {data &&
         data.comments.map((comment) => {
+          {
+            console.log(comment);
+          }
           return (
             <div
               key={comment.id}
@@ -36,10 +40,7 @@ function TaskUI({ data, user }) {
                     comment.uid === user.uid ? "text-blue-200" : "text-gray-400"
                   }`}
                 >
-                  {new Date().toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
+                  {formatTime(comment.createdAt)}
                 </span>
               </div>
 

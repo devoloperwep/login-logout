@@ -1,11 +1,13 @@
-import { addDoc, collection, doc, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import FormInput from "../components/FormInput";
 import FormTextArea from "../components/FormTextArea";
 import { db } from "../firebase/config";
 import { useCollection } from "../hooks/useCollection";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreateTask() {
   const { data } = useCollection("users");
@@ -14,14 +16,12 @@ function CreateTask() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const users = data?.map((user) => {
-      return {
-        value: user.displayName,
-        label: user.displayName,
-        photoURL: user.photoURL,
-        uid: user.uid,
-      };
-    });
+    const users = data?.map((user) => ({
+      value: user.displayName,
+      label: user.displayName,
+      photoURL: user.photoURL,
+      uid: user.uid,
+    }));
     setUserOptions(users);
   }, [data]);
 
@@ -42,14 +42,16 @@ function CreateTask() {
         timestamp: serverTimestamp(),
       };
 
-      await addDoc(collection(db, "tasks"), {
-        ...task,
-      }).then(() => {
-        alert("Qo'shildi !!!");
-        navigate("/");
-      });
+      await addDoc(collection(db, "tasks"), task)
+        .then(() => {
+          toast.success("Task added 🎉");
+          setTimeout(() => navigate("/"), 1500);
+        })
+        .catch(() => {
+          toast.error("Something went wrong ❌");
+        });
     } else {
-      alert("Formani to'ldiring!");
+      toast.warn("Fill all fields ⚠️");
     }
   };
 
@@ -98,6 +100,19 @@ function CreateTask() {
           Create Task 🚀
         </button>
       </form>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }
